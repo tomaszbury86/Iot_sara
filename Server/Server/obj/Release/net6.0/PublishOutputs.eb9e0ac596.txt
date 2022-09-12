@@ -1,0 +1,8 @@
+C:\Users\tomas\Desktop\Server\Server\obj\Release\net6.0\PubTmp\Out\Server.exe
+C:\Users\tomas\Desktop\Server\Server\obj\Release\net6.0\PubTmp\Out\appsettings.Development.json
+C:\Users\tomas\Desktop\Server\Server\obj\Release\net6.0\PubTmp\Out\appsettings.json
+C:\Users\tomas\Desktop\Server\Server\obj\Release\net6.0\PubTmp\Out\Server.dll
+C:\Users\tomas\Desktop\Server\Server\obj\Release\net6.0\PubTmp\Out\Server.deps.json
+C:\Users\tomas\Desktop\Server\Server\obj\Release\net6.0\PubTmp\Out\Server.runtimeconfig.json
+C:\Users\tomas\Desktop\Server\Server\obj\Release\net6.0\PubTmp\Out\Server.pdb
+C:\Users\tomas\Desktop\Server\Server\obj\Release\net6.0\PubTmp\Out\Newtonsoft.Json.dll

@@ -48,7 +48,14 @@ namespace Server
                         await Send(Socket.Sockets
                               .Where(x => x.Type == SocketType.IOT)
                               .Select(x => x.Socket)
-                              .ToList(), new RequestModel() { Command = Command.SWITCH_LED });
+                              .ToList(), command);
+                    }
+                    else if (command.Command == Command.SWITCH_GPIO)
+                    {
+                        await Send(Socket.Sockets
+                              .Where(x => x.Type == SocketType.IOT)
+                              .Select(x => x.Socket)
+                              .ToList(), command);
                     }
                     else if (command.Command == Command.SWITCH_LED_DONE)
                     {
@@ -77,6 +84,20 @@ namespace Server
                     {
                         await Send(Socket.Sockets
                                .Where(x => x.Type == SocketType.IOT)
+                               .Select(x => x.Socket)
+                               .ToList(), command);
+                    }
+                    else if (command.Command == Command.OFF_GPIO_DONE)
+                    {
+                        await Send(Socket.Sockets
+                               .Where(x => x.Type == SocketType.WEB_BROWSER)
+                               .Select(x => x.Socket)
+                               .ToList(), command);
+                    }
+                    else if (command.Command == Command.ON_GPIO_DONE)
+                    {
+                        await Send(Socket.Sockets
+                               .Where(x => x.Type == SocketType.WEB_BROWSER)
                                .Select(x => x.Socket)
                                .ToList(), command);
                     }

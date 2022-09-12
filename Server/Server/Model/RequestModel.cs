@@ -24,6 +24,8 @@ namespace Server.Model
         SWITCH_GPIO_DONE,
         SWITCH_GPIO,
         OFF_GPIO,
-        ON_GPIO
+        ON_GPIO,
+        OFF_GPIO_DONE,
+        ON_GPIO_DONE
     }
 }

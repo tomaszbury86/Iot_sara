@@ -64,6 +64,7 @@
         var scheme = document.location.protocol === "https:" ? "wss" : "ws";
         var port = document.location.port ? (":" + document.location.port) : "";
         socket = new WebSocket(scheme + "://" + document.location.hostname + port + "/ws");
+        var gpio = null;
 
         socket.onopen = function (event) {
             updateState();
@@ -84,12 +85,12 @@
             else if (json.Command == "GET_GPIO_LIST_DONE") {
                 detail.innerHTML = '';
 
-                var str_array = json.Args.split(';');
+                gpio = json.Args.split(';');
 
                 var newButtons = '';
-                for (var i = 0; i < str_array.length; i++) {
-                    if (str_array[i] != '') {
-                        newButtons += '<div class="col-12-lg"><button onClick="buttonClickSwith(' + str_array[i] + ')" id="' + str_array[i] + '" class="btn btn-secondary">' + str_array[i] + '</button></div>';
+                for (var i = 0; i < gpio.length; i++) {
+                    if (gpio[i] != '') {
+                        newButtons += '<div class="col-12-lg"><button onClick="buttonClickSwith(' + gpio[i] + ')" id="' + gpio[i] + '" class="btn btn-secondary">' + gpio[i] + '</button></div>';
                     }
                 }
                 newButtons += '<div class="col-12-lg"><button onClick="buttonClickOn()" id="On" class="btn btn-success">ON</button></div>';
@@ -111,11 +112,11 @@
             else if (json.Command == "SWITCH_GPIO_DONE") {
                 var id = json.Args.split(':')[0];
                 if (json.Args.split(':')[1] == 1) {
-                    $('#'+id).removeClass("btn-secondary");
-                    $('#'+id).addClass("btn-primary");
+                    $('#' + id).removeClass("btn-secondary");
+                    $('#' + id).addClass("btn-primary");
                 }
                 else {
-                     $('#'+id).addClass("btn-secondary");
+                    $('#' + id).addClass("btn-secondary");
                     $('#' + id).removeClass("btn-primary");
                 }
             }
@@ -150,18 +151,28 @@
             socket.send(JSON.stringify({ "Command": "SWITCH_GPIO", "Args": value.toString() }));
         }
 
-        function buttonClickOn() {
+        async function buttonClickOn() {
             if (!socket || socket.readyState !== WebSocket.OPEN) {
                 console.log("socket not connected");
             }
-            socket.send(JSON.stringify({ "Command": "ON_GPIO", "Args": "5" }));
+            for (var i = 0; i < gpio.length; i++) {
+                if (gpio[i] != '') {
+                    socket.send(JSON.stringify({ "Command": "ON_GPIO", "Args": gpio[i] }));
+                    await sleep(1 * 1000);
+                }
+            }
         }
 
-        function buttonClickOff() {
+        async function buttonClickOff() {
             if (!socket || socket.readyState !== WebSocket.OPEN) {
                 console.log("socket not connected");
             }
-            socket.send(JSON.stringify({ "Command": "Off_GPIO", "Args": "5" }));
+            for (var i = 0; i < gpio.length; i++) {
+                if (gpio[i] != '') {
+                    socket.send(JSON.stringify({ "Command": "OFF_GPIO", "Args": gpio[i] }));
+                    await sleep(1 * 1000);
+                }
+            }
         }
 
         function updateState() {

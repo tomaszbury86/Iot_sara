@@ -120,26 +120,26 @@
                     $('#' + id).removeClass("btn-primary");
                 }
             }
-            else if (json.Command == "ON_GPIO") {
+            else if (json.Command == "ON_GPIO_DONE") {
                 var id = json.Args.split(':')[0];
                 if (json.Args.split(':')[1] == 1) {
                     $('#' + id).removeClass("btn-secondary");
-                    $('#' + id).addClass("btn-success");
+                    $('#' + id).addClass("btn-primary");
                 }
                 else {
                     $('#' + id).addClass("btn-secondary");
-                    $('#' + id).removeClass("btn-success");
+                    $('#' + id).removeClass("btn-primary");
                 }
             }
-            else if (json.Command == "OFF_GPIO") {
+            else if (json.Command == "OFF_GPIO_DONE") {
                 var id = json.Args.split(':')[0];
                 if (json.Args.split(':')[1] == 1) {
                     $('#' + id).removeClass("btn-secondary");
-                    $('#' + id).addClass("btn-success");
+                    $('#' + id).addClass("btn-primary");
                 }
                 else {
                     $('#' + id).addClass("btn-secondary");
-                    $('#' + id).removeClass("btn-success");
+                    $('#' + id).removeClass("btn-primary");
                 }
             }
         };
@@ -151,26 +151,25 @@
             socket.send(JSON.stringify({ "Command": "SWITCH_GPIO", "Args": value.toString() }));
         }
 
-        async function buttonClickOn() {
+        function buttonClickOn() {
             if (!socket || socket.readyState !== WebSocket.OPEN) {
                 console.log("socket not connected");
             }
+
             for (var i = 0; i < gpio.length; i++) {
                 if (gpio[i] != '') {
                     socket.send(JSON.stringify({ "Command": "ON_GPIO", "Args": gpio[i] }));
-                    await sleep(1 * 1000);
                 }
             }
         }
 
-        async function buttonClickOff() {
+        function buttonClickOff() {
             if (!socket || socket.readyState !== WebSocket.OPEN) {
                 console.log("socket not connected");
             }
             for (var i = 0; i < gpio.length; i++) {
                 if (gpio[i] != '') {
                     socket.send(JSON.stringify({ "Command": "OFF_GPIO", "Args": gpio[i] }));
-                    await sleep(1 * 1000);
                 }
             }
         }

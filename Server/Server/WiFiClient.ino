@@ -10,7 +10,7 @@
 
 const char* ssid = STASSID;
 const char* password = STAPSK;
-const int allowRemoteGpio[4] = { 5, 6, 7, 8 };
+const int allowRemoteGpio[1] = { 5 };
 const String deviceName = "DEV_1";
 WebSocketsClient webSocket;
 
@@ -66,10 +66,10 @@ void execute(uint8_t* payload) {
   } else if (command == "SWITCH_LED") {
     if (digitalRead(LED_BUILTIN) == 1) {
       digitalWrite(LED_BUILTIN, LOW);
-      json["Args"] = String(gpio)+":1";
+      json["Args"] = String(gpio) + ":1";
     } else {
       digitalWrite(LED_BUILTIN, HIGH);
-      json["Args"] = String(gpio)+":0";
+      json["Args"] = String(gpio) + ":0";
     }
     json["Command"] = "SWITCH_LED_DONE";
   } else if (command == "GET_GPIO_LIST") {
@@ -112,13 +112,15 @@ void execute(uint8_t* payload) {
 void setup() {
   Serial.begin(115200);
 
-  pinMode(LED_BUILTIN, OUTPUT);
+  //pinMode(LED_BUILTIN, OUTPUT);
+  //pinMode(1, OUTPUT);
+  //pinMode(2, OUTPUT);
+ // pinMode(3, OUTPUT);
+  //pinMode(4, OUTPUT);
   pinMode(5, OUTPUT);
-  // pinMode(6, OUTPUT);
-  // pinMode(7, OUTPUT);
-  // pinMode(8, OUTPUT);
+  //pinMode(6, OUTPUT);
 
-  digitalWrite(LED_BUILTIN, HIGH);
+  //digitalWrite(LED_BUILTIN, HIGH);
 
   Serial.println();
   Serial.print("Connecting to ");

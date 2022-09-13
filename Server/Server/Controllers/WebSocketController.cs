@@ -68,6 +68,7 @@ public class WebSocketController : ControllerBase
                     {
                         Command = Command.REGISTER_NODE_MCU
                     }));
+
                 }
             }
 

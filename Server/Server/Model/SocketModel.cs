@@ -7,7 +7,15 @@ namespace Server.Model
         public DateTime UpdateTime { get; set; }
         public WebSocket Socket { get; set; }
         public SocketType Type { get; set; }
+
+        public SocketModel(WebSocket socket, SocketType type)
+        {
+            UpdateTime = DateTime.UtcNow;
+            Socket = socket;
+            Type = type;    
+        }
     }
+
 
     public enum SocketType
     {

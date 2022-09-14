@@ -698,3 +698,15 @@ C:\Users\tomas\Desktop\Iot_sara\Server\Server\obj\Debug\net6.0\refint\Server.dll
 C:\Users\tomas\Desktop\Iot_sara\Server\Server\obj\Debug\net6.0\Server.pdb
 C:\Users\tomas\Desktop\Iot_sara\Server\Server\obj\Debug\net6.0\Server.genruntimeconfig.cache
 C:\Users\tomas\Desktop\Iot_sara\Server\Server\obj\Debug\net6.0\ref\Server.dll
+C:\Users\tomas\Desktop\Iot_sara\Server\Server\bin\Debug\net6.0\Arduino\libraries\ArduinoJson\extras\fuzzing\json_seed_corpus\Comments.json
+C:\Users\tomas\Desktop\Iot_sara\Server\Server\bin\Debug\net6.0\Arduino\libraries\ArduinoJson\extras\fuzzing\json_seed_corpus\EmptyArray.json
+C:\Users\tomas\Desktop\Iot_sara\Server\Server\bin\Debug\net6.0\Arduino\libraries\ArduinoJson\extras\fuzzing\json_seed_corpus\EmptyObject.json
+C:\Users\tomas\Desktop\Iot_sara\Server\Server\bin\Debug\net6.0\Arduino\libraries\ArduinoJson\extras\fuzzing\json_seed_corpus\ExcessiveNesting.json
+C:\Users\tomas\Desktop\Iot_sara\Server\Server\bin\Debug\net6.0\Arduino\libraries\ArduinoJson\extras\fuzzing\json_seed_corpus\IntegerOverflow.json
+C:\Users\tomas\Desktop\Iot_sara\Server\Server\bin\Debug\net6.0\Arduino\libraries\ArduinoJson\extras\fuzzing\json_seed_corpus\Numbers.json
+C:\Users\tomas\Desktop\Iot_sara\Server\Server\bin\Debug\net6.0\Arduino\libraries\ArduinoJson\extras\fuzzing\json_seed_corpus\OpenWeatherMap.json
+C:\Users\tomas\Desktop\Iot_sara\Server\Server\bin\Debug\net6.0\Arduino\libraries\ArduinoJson\extras\fuzzing\json_seed_corpus\Strings.json
+C:\Users\tomas\Desktop\Iot_sara\Server\Server\bin\Debug\net6.0\Arduino\libraries\ArduinoJson\extras\fuzzing\json_seed_corpus\WeatherUnderground.json
+C:\Users\tomas\Desktop\Iot_sara\Server\Server\bin\Debug\net6.0\Arduino\libraries\ArduinoJson\library.json
+C:\Users\tomas\Desktop\Iot_sara\Server\Server\bin\Debug\net6.0\Arduino\libraries\WebSockets\library.json
+C:\Users\tomas\Desktop\Iot_sara\Server\Server\bin\Debug\net6.0\Arduino\libraries\WebSockets\tests\webSocketServer\package.json

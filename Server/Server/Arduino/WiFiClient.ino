@@ -10,7 +10,7 @@
 
 const char* ssid = STASSID;
 const char* password = STAPSK;
-const int allowRemoteGpio[1] = { 5 };
+const int allowRemoteGpio[3] = { 12, 13, 15 };
 const String deviceName = "DEV_1";
 WebSocketsClient webSocket;
 
@@ -66,10 +66,10 @@ void execute(uint8_t* payload) {
   } else if (command == "SWITCH_LED") {
     if (digitalRead(LED_BUILTIN) == 1) {
       digitalWrite(LED_BUILTIN, LOW);
-      json["Args"] = String(gpio) + ":1";
+      json["Args"] = String(gpio) + ":" + digitalRead(gpio);
     } else {
       digitalWrite(LED_BUILTIN, HIGH);
-      json["Args"] = String(gpio) + ":0";
+      json["Args"] = String(gpio) + ":" + digitalRead(gpio);
     }
     json["Command"] = "SWITCH_LED_DONE";
   } else if (command == "GET_GPIO_LIST") {
@@ -80,14 +80,14 @@ void execute(uint8_t* payload) {
     json["Command"] = "GET_GPIO_LIST_DONE";
     json["Args"] = args;
   } else if (command == "OFF_GPIO") {
-    digitalWrite(gpio, LOW);
+    digitalWrite(gpio, HIGH);
     json["Command"] = "OFF_GPIO_DONE";
-    json["Args"] = String(gpio) + ":0";
+    json["Args"] = String(gpio) + ":" + digitalRead(gpio);
     ;
   } else if (command == "ON_GPIO") {
-    digitalWrite(gpio, HIGH);
+    digitalWrite(gpio, LOW);
     json["Command"] = "ON_GPIO_DONE";
-    json["Args"] = String(gpio) + ":1";
+    json["Args"] = String(gpio) + ":" + digitalRead(gpio);
   }
 
   serializeJson(json, response);
@@ -115,14 +115,19 @@ void setup() {
   //pinMode(LED_BUILTIN, OUTPUT);
   //digitalWrite(LED_BUILTIN, HIGH);
 
-  //pinMode(1, OUTPUT);
-  //pinMode(2, OUTPUT);
-  // pinMode(3, OUTPUT);
-  //pinMode(4, OUTPUT);
-  pinMode(5, OUTPUT);
-  //pinMode(6, OUTPUT);
-  //pinMode(7, OUTPUT);
-  //pinMode(8, OUTPUT);
+  //pinMode(16, OUTPUT);  //D0
+  //pinMode(5, OUTPUT);   //D1
+  //pinMode(4, OUTPUT);   //D2
+  //pinMode(0, OUTPUT);   //D3
+  //pinMode(2, OUTPUT);   //D4
+  //pinMode(14, OUTPUT);  //D5
+  pinMode(12, OUTPUT);  //D6
+  pinMode(13, OUTPUT);  //D7
+  pinMode(15, OUTPUT);  //D8
+
+  digitalWrite(12, HIGH);  //D6
+  digitalWrite(13, HIGH);  //D7
+  digitalWrite(15, HIGH);  //D8
 
   Serial.println();
   Serial.print("Connecting to ");

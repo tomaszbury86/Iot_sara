@@ -11,14 +11,19 @@ namespace WebSocketsSample.Controllers;
 
 public class WebSocketController : ControllerBase
 {
-   
+    private readonly SocketManager _socketManager;
+    public WebSocketController(SocketManager socketManager)
+    {
+        _socketManager = socketManager;
+    }
+
     [HttpConnect("/ws")]
     [HttpGet("/ws")]
     public async Task Get()
     {
         if (HttpContext.WebSockets.IsWebSocketRequest)
         {
-            await (await HttpContext.WebSockets.AcceptWebSocketAsync()).Process();
+            await _socketManager.ProcessSocketMessage(await HttpContext.WebSockets.AcceptWebSocketAsync());
         }
         else
         {

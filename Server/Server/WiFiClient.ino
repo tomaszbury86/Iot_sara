@@ -113,14 +113,16 @@ void setup() {
   Serial.begin(115200);
 
   //pinMode(LED_BUILTIN, OUTPUT);
+  //digitalWrite(LED_BUILTIN, HIGH);
+
   //pinMode(1, OUTPUT);
   //pinMode(2, OUTPUT);
- // pinMode(3, OUTPUT);
+  // pinMode(3, OUTPUT);
   //pinMode(4, OUTPUT);
   pinMode(5, OUTPUT);
   //pinMode(6, OUTPUT);
-
-  //digitalWrite(LED_BUILTIN, HIGH);
+  //pinMode(7, OUTPUT);
+  //pinMode(8, OUTPUT);
 
   Serial.println();
   Serial.print("Connecting to ");

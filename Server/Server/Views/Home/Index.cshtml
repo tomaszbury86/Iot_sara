@@ -36,12 +36,8 @@
     </style>
 </head>
 <body>
-    @*    <button id="sendButton" type="submit" style="width: 300px;height: 300px">LED</button>*@
     <div class="centered" style="color: #383838; font-family: 'Segoe UI';">
         <center>
-            @*                <i class="bi bi-plug" style="font-size: 300px; position: relative"></i>
-            <i class="bi bi-heart-pulse" style="font-size: 50px; position: relative; left: -100px"></i>*@
-
             <div id="info" class="alert alert-success" role="alert" style="max-width: 600px">
                 <div class="spinner-border" role="status">
                     <span class="visually-hidden">Loading...</span>
@@ -141,6 +137,15 @@
                     $('#' + id).addClass("btn-secondary");
                     $('#' + id).removeClass("btn-primary");
                 }
+            }
+            else if (json.Command = "UNREGISTER_NODE_MCU") {
+                info.hidden = false;
+                buttons.innerHTML = '';
+                info.innerHTML = '<div class="spinner-border" role="status">' +
+                    '<span class="visually-hidden">Loading...</span>' +
+                    '</div>' +
+                    '<h4 id="header" class="alert-heading">Waiting for device...</h4>' +
+                    '<p id="detail">Please connect the device to the power supply</p>';
             }
         };
 

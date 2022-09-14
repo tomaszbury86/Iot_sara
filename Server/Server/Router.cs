@@ -5,110 +5,98 @@ using System.Text;
 
 namespace Server
 {
-
-    public static class Router
+    public class Router
     {
-        public static async Task TracePackage(RequestModel? command)
+        public List<KeyValuePair<SocketType, RequestModel>> TraceMessage(RequestModel? command)
         {
+            List<KeyValuePair<SocketType, RequestModel>> result = new List<KeyValuePair<SocketType, RequestModel>>();
+            Func<SocketType, RequestModel, bool> AddToResult = new Func<SocketType, RequestModel, bool>((socket, command) => {
+                result.Add(new KeyValuePair<SocketType, RequestModel>(socket, command));
+                return true;
+            });
+
             if (command != null)
             {
-                if (Socket.All() != null)
+                if (command.Command == Command.GET_GPIO_LIST_DONE)
                 {
-                    if (command.Command == Command.GET_GPIO_LIST_DONE)
-                    {
-                        await Send(command, SocketType.WEB_BROWSER);
-
-                    }
-                    else if (command.Command == Command.REGISTER_NODE_MCU)
-                    {
-                        await Send(command, SocketType.WEB_BROWSER);
-
-                        await Send(new RequestModel()
-                            {
-                                Command = Command.GET_GPIO_LIST,
-                                Args = "0"
-                            }, SocketType.IOT);
-
-                        //Socket.LastHearthbeatTime = DateTime.UtcNow;
-                        //Hearthbeat();
-                    }
-                    else if (command.Command == Command.SWITCH_LED)
-                    {
-                        await Send(command, SocketType.IOT);
-                    }
-                    else if (command.Command == Command.SWITCH_GPIO)
-                    {
-                        await Send(command, SocketType.IOT);
-                    }
-                    else if (command.Command == Command.SWITCH_LED_DONE)
-                    {
-                        await Send(command, SocketType.WEB_BROWSER);
-
-                        //Socket.LastHearthbeatTime = DateTime.UtcNow;
-                    }
-                    else if (command.Command == Command.SWITCH_GPIO_DONE)
-                    {
-                        await Send(command, SocketType.WEB_BROWSER);
-                    }
-                    else if (command.Command == Command.OFF_GPIO)
-                    {
-                        await Send(command, SocketType.IOT);
-                    }
-                    else if (command.Command == Command.ON_GPIO)
-                    {
-                        await Send(command, SocketType.IOT);
-                    }
-                    else if (command.Command == Command.OFF_GPIO_DONE)
-                    {
-                        await Send(command, SocketType.WEB_BROWSER);
-                    }
-                    else if (command.Command == Command.ON_GPIO_DONE)
-                    {
-                        await Send(command, SocketType.WEB_BROWSER);
-                    }
+                    AddToResult(SocketType.WEB_BROWSER, command);
                 }
-
+                else if (command.Command == Command.REGISTER_NODE_MCU)
+                {
+                    AddToResult(SocketType.WEB_BROWSER, command);
+                    AddToResult(SocketType.IOT, new RequestModel()
+                    {
+                        Command = Command.GET_GPIO_LIST,
+                        Args = "0"
+                    });
+                }
+                else if (command.Command == Command.UNREGISTER_NODE_MCU)
+                {
+                    AddToResult(SocketType.WEB_BROWSER, command);
+                }
+                else if (command.Command == Command.SWITCH_LED)
+                {
+                    AddToResult(SocketType.IOT, command);
+                }
+                else if (command.Command == Command.SWITCH_GPIO)
+                {
+                    AddToResult(SocketType.IOT, command);
+                }
+                else if (command.Command == Command.SWITCH_LED_DONE)
+                {
+                    AddToResult(SocketType.WEB_BROWSER, command);
+                }
+                else if (command.Command == Command.SWITCH_GPIO_DONE)
+                {
+                    AddToResult(SocketType.WEB_BROWSER, command);
+                }
+                else if (command.Command == Command.OFF_GPIO)
+                {
+                    AddToResult(SocketType.IOT, command);
+                }
+                else if (command.Command == Command.ON_GPIO)
+                {
+                    AddToResult(SocketType.IOT, command);
+                }
+                else if (command.Command == Command.OFF_GPIO_DONE)
+                {
+                    AddToResult(SocketType.WEB_BROWSER, command);
+                }
+                else if (command.Command == Command.ON_GPIO_DONE)
+                {
+                    AddToResult(SocketType.WEB_BROWSER, command);
+                }
             }
+
+            return result;
         }
 
-        public static async Task Send(RequestModel request, SocketType recipient)
-        {
-            string query = JsonConvert.SerializeObject(request);
 
-            foreach (var socket in Socket.All().Where(x => x.Socket.State == WebSocketState.Open && x.Type == recipient))
-            {
-                await socket.Socket.SendAsync(
-                new ArraySegment<byte>(Encoding.UTF8.GetBytes(query), 0, query.Length),
-                WebSocketMessageType.Text,
-                true,
-                CancellationToken.None);
-            }
-        }
 
-        //private static void Hearthbeat()
+        //private static void hearthbeat()
         //{
-        //    Task.Factory.StartNew(async () =>
+        //    task.factory.startnew(async () =>
         //    {
         //        while (true)
         //        {
-        //            await Router.Send(Socket.All()
-        //                    .Where(x => x.Type == SocketType.IOT)
-        //                    .Select(x => x.Socket)
-        //                    .ToList(),
-        //                    new RequestModel { Command = Command.SWITCH_LED });
+        //            await router.send(socket.all()
+        //                    .where(x => x.type == sockettype.iot)
+        //                    .select(x => x.socket)
+        //                    .tolist(),
+        //                    new requestmodel { command = command.switch_led });
 
 
-        //            if ((DateTime.UtcNow - Socket.LastHearthbeatTime).TotalSeconds > 15)
+        //            if ((datetime.utcnow - socket.lasthearthbeattime).totalseconds > 15)
         //            {
-        //                await Send(Socket.All()
-        //                 .Where(x => x.Type == SocketType.WEB_BROWSER)
-        //                 .Select(x => x.Socket)
-        //                 .ToList(), new RequestModel() { Command = Command.UNREGISTER_NODE_MCU });
+        //                await send(socket.all()
+        //                 .where(x => x.type == sockettype.web_browser)
+        //                 .select(x => x.socket)
+        //                 .tolist(), new requestmodel() { command = command.unregister_node_mcu });
 
         //                break;
         //            }
 
-        //            Thread.Sleep(2000);
+        //            thread.sleep(2000);
         //        }
         //    });
         //}

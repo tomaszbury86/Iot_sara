@@ -1,4 +1,10 @@
+using Server;
+
 var builder = WebApplication.CreateBuilder(args);
+
+
+builder.Services.AddSingleton<SocketManager>();
+builder.Services.AddSingleton<Router>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

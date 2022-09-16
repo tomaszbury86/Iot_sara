@@ -4,8 +4,8 @@
 
 
 #ifndef STASSID
-#define STASSID "Synology"
-#define STAPSK "wpa2.psk.86021813458"
+#define STASSID ""
+#define STAPSK ""
 #endif
 
 const char* ssid = STASSID;
